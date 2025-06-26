@@ -3,10 +3,12 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate()
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user.email],
     queryFn: async () => {
@@ -19,11 +21,13 @@ const MyParcels = () => {
 
   const handleView = (id) => {
     console.log("View parcel", id);
+    
     // You could open a modal or navigate to a detail page
   };
 
   const handlePay = (id) => {
     console.log("Proceed to payment for", id);
+    navigate(`/dashboard/payment/${id}`)
     // Implement your payment logic
   };
 
